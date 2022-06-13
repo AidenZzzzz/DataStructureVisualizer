@@ -1,7 +1,7 @@
-package view.stack;
+package view.queue;
 
 import model.linkedlist.AbstractSinglyLinkedNode;
-import model.stack.Stack;
+import model.queue.Queue;
 import view.template.AbstractControlPanel;
 
 import javax.swing.*;
@@ -11,11 +11,11 @@ import java.util.Objects;
 /**
  * @author aiden
  */
-public class StackControlPanel extends AbstractControlPanel {
-    private StackGraphics  stackGraphics;
-    private Stack stack;
+public class QueueControlPanel extends AbstractControlPanel {
+    private QueueGraphics queueGraphics;
+    private Queue queue;
     private final JComboBox<String> actionChooser;
-    public StackControlPanel() {
+    public QueueControlPanel() {
         super();
         String[] actions = new String[]{"Push", "Pop", "Find"};
         actionChooser = new JComboBox<>(actions);
@@ -32,7 +32,6 @@ public class StackControlPanel extends AbstractControlPanel {
 
         initActionListener();
     }
-
 
     private void initActionListener() {
         actionChooser.addActionListener(e -> {
@@ -51,7 +50,7 @@ public class StackControlPanel extends AbstractControlPanel {
                     default -> throw new IllegalStateException("Unexpected value: " + actionChooser.getSelectedItem());
                 }
                 textField.setText("");
-                stackGraphics.repaint();
+                queueGraphics.repaint();
 
             }
             else{
@@ -60,32 +59,32 @@ public class StackControlPanel extends AbstractControlPanel {
         });
     }
 
-    public void setStackGraphics(StackGraphics stackGraphics) {
-        this.stackGraphics = stackGraphics;
+    public void setQueueGraphics(QueueGraphics queueGraphics) {
+        this.queueGraphics = queueGraphics;
     }
 
-    public void setStack(Stack stack) {
-        this.stack = stack;
+    public void setQueue(Queue queue) {
+        this.queue = queue;
     }
 
     private void pop(String name) {
         System.out.println(name);
-        AbstractSinglyLinkedNode.Node top = Stack.top(stack);
+        AbstractSinglyLinkedNode.Node top = Queue.top(queue);
         if(top!=null) {
             this.status.setText("removed " + top.val.toString());
-            stack = Stack.pop(stack);
+            queue = Queue.pop(queue);
         }
         else
         {
-            this.status.setText("Stack empty");
+            this.status.setText("Queue empty");
         }
-        stackGraphics.repaint();
+        queueGraphics.repaint();
         repaint();
     }
 
     private void find(String name) {
         System.out.println(name);
-        int res = Stack.find(stack,Integer.parseInt(name));
+        int res = Queue.find(queue,Integer.parseInt(name));
         if(res == -1)
         {
             status.setText(name + " not found");
@@ -93,20 +92,19 @@ public class StackControlPanel extends AbstractControlPanel {
         else
         {
             status.setText("Found at level " + res);
-            StackGraphics.drawIndex(stackGraphics.getG(),res);
+            QueueGraphics.drawIndex(queueGraphics.getG(),res);
         }
 
-        stackGraphics.repaint();
+        queueGraphics.repaint();
         repaint();
     }
 
     private void push(String name) {
         System.out.println(name);
-        Stack.push(stack,Integer.parseInt(name));
-        stackGraphics.repaint();
+        Queue.push(queue,Integer.parseInt(name));
+        queueGraphics.repaint();
         repaint();
     }
-
 
 
 }

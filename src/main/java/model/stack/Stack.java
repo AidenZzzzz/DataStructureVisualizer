@@ -1,11 +1,11 @@
 package model.stack;
 
-import view.linkedlist.LinkedListNode;
+import model.linkedlist.AbstractSinglyLinkedNode;
 
 /**
  * @author aiden
  */
-public class Stack extends LinkedListNode {
+public class Stack extends AbstractSinglyLinkedNode {
 
     public static void push(Stack stack, Object val){
         Node newNode = new Node(val);
@@ -45,5 +45,14 @@ public class Stack extends LinkedListNode {
             curr = curr.next;
         }
         return -1;
+    }
+
+    public static void printStack(Stack stack) {
+        Node currNode = stack.head;
+        System.out.print("LinkedList: ");
+        while (currNode != null) {
+            System.out.print(currNode.val + " ");
+            currNode = currNode.next;
+        }
     }
 }

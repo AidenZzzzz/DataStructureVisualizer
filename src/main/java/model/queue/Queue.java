@@ -1,25 +1,27 @@
 package model.queue;
 
-import view.linkedlist.LinkedListNode;
+import model.linkedlist.AbstractSinglyLinkedNode;
 
 /**
  * @author aiden
  */
-public class Queue extends LinkedListNode {
+public class Queue extends AbstractSinglyLinkedNode {
 
     public static void push(Queue queue, Object val)
     {
         Node curr = queue.head;
         Node newNode = new Node(val);
         if (curr != null) {
-            while(queue.head.next != null)
+            while(curr.next != null)
             {
-                curr = queue.head.next;
+                curr = curr.next;
             }
             curr.next = newNode;
 
         }
-        queue.head = newNode;
+        else {
+            queue.head = newNode;
+        }
     }
 
     public static Node top(Queue queue)
@@ -57,7 +59,14 @@ public class Queue extends LinkedListNode {
         return -1;
     }
 
-
-
-
+    public static void printQueue(Queue queue) {
+        Node curr = queue.head;
+        System.out.println("Queue: ");
+        while(curr!=null)
+        {
+            System.out.print(curr.val + " ");
+            curr = curr.next;
+        }
+        System.out.print('\n');
+    }
 }

@@ -8,14 +8,13 @@ import view.template.AbstractFrameTemplate;
  * @author aiden
  */
 public class StackFrame extends AbstractFrameTemplate {
-    private final Stack stack;
 
     public StackFrame() {
 
         super();
         setTitle("Stack Visualizer");
 
-        stack = new Stack();
+        Stack stack = new Stack();
         StackGraphics stackGraphics = new StackGraphics(stack);
         stackGraphics.setSize(Constant.GRAPHICS_W,Constant.GRAPHICS_H);
 

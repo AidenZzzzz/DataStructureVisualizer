@@ -1,11 +1,11 @@
-package view.linkedlist;
+package model.linkedlist;
 
 import model.stack.Stack;
 
 /**
  * @author aiden
  */
-public class LinkedListNode {
+public abstract class AbstractSinglyLinkedNode {
     public Node head;
     public static class Node {
         public final Object val;
@@ -16,9 +16,9 @@ public class LinkedListNode {
         }
     }
 
-    public static void print(Stack stack)
+    public static void print(AbstractSinglyLinkedNode object)
     {
-        Node curr = stack.head;
+        Node curr = object.head;
         while(curr != null)
         {
             System.out.print( curr.val + " ");

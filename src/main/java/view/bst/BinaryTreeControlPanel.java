@@ -1,7 +1,6 @@
 package view.bst;
 
 import model.bst.BinaryTree;
-import util.BinaryTreeUtil;
 import view.template.AbstractControlPanel;
 
 import javax.swing.*;
