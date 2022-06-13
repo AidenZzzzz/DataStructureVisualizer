@@ -10,6 +10,11 @@ public class Constant {
     public static final int GRAPHICS_W = FRAME_WIDTH;
     public static final int GRAPHICS_H = FRAME_WIDTH;
 
+    public static final int CONTROL_BUTTON_WIDTH = 100;
+    public static final int CONTROL_BUTTON_HEIGHT = 38;
+
+    public static final int GAP = 6;
+
     public static final int CONTROL_W = FRAME_WIDTH;
     public static final int CONTROL_H = FRAME_HEIGHT - FRAME_WIDTH;
 

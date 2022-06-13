@@ -6,6 +6,8 @@ import view.menu.SelectionFrame;
 import javax.swing.*;
 import java.awt.*;
 
+import static util.Constant.*;
+
 /**
  * @author aiden
  */
@@ -20,12 +22,12 @@ public abstract class AbstractControlPanel extends JPanel {
     protected final JTextField textField = new JTextField();
     public AbstractControlPanel() {
         //setLayout(new GridBagLayout());
-        setPreferredSize(new Dimension(Constant.CONTROL_W,Constant.CONTROL_H));
+        setPreferredSize(new Dimension(CONTROL_W, CONTROL_H));
 
-        textField.setPreferredSize(new Dimension(100,30));
-        button.setPreferredSize(new Dimension(100,30));
-        back.setPreferredSize(new Dimension(100,30));
-        status.setPreferredSize(new Dimension(Constant.CONTROL_W/2,30));
+        textField.setPreferredSize(new Dimension(CONTROL_BUTTON_WIDTH,CONTROL_BUTTON_HEIGHT));
+        button.setPreferredSize(new Dimension(CONTROL_BUTTON_WIDTH,CONTROL_BUTTON_HEIGHT));
+        back.setPreferredSize(new Dimension(CONTROL_BUTTON_WIDTH,CONTROL_BUTTON_HEIGHT));
+        status.setPreferredSize(new Dimension(CONTROL_W,CONTROL_BUTTON_HEIGHT));
         back.setText("Back");
 
         status.setAlignmentY(CENTER_ALIGNMENT);
@@ -42,9 +44,9 @@ public abstract class AbstractControlPanel extends JPanel {
         topContainer.add(status);
         botContainer.add(back);
 
-        topContainer.setPreferredSize(new Dimension(Constant.CONTROL_W,Constant.CONTROL_H/3));
-        middleContainer.setPreferredSize(new Dimension(Constant.CONTROL_W,Constant.CONTROL_H/3));
-        botContainer.setPreferredSize(new Dimension(Constant.CONTROL_W,Constant.CONTROL_H/3));
+        topContainer.setPreferredSize(new Dimension(CONTROL_W, CONTROL_H/3));
+        middleContainer.setPreferredSize(new Dimension(CONTROL_W, CONTROL_H/3));
+        botContainer.setPreferredSize(new Dimension(CONTROL_W, CONTROL_H/3));
 
         setBackground(Color.GRAY);
         back.addActionListener(e -> {

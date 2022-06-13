@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
+import static util.Constant.*;
+
 /**
  * @author aiden
  */
@@ -20,7 +22,7 @@ public class BinaryTreeControlPanel extends AbstractControlPanel {
         super();
         actions = new String[]{"Insert", "Delete", "Find"};
         actionChooser = new JComboBox<>(actions);
-        actionChooser.setPreferredSize(new Dimension(100,30));
+        actionChooser.setPreferredSize(new Dimension(CONTROL_BUTTON_WIDTH, CONTROL_BUTTON_HEIGHT));
         button.setText(Objects.requireNonNull(actionChooser.getSelectedItem()).toString());
         middleContainer.add(actionChooser);
         middleContainer.add(textField);

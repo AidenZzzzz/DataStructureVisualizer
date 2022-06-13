@@ -5,7 +5,7 @@ package model.linkedlist;
  */
 public class SinglyLinkedList extends AbstractSinglyLinkedNode{
 
-    public static SinglyLinkedList insert(SinglyLinkedList list, int data) {
+    public static SinglyLinkedList insert(SinglyLinkedList list, Object data) {
         Node newNode = new Node(data);
         newNode.next = null;
         if (list.head == null) {

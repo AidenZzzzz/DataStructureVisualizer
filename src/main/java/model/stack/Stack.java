@@ -37,7 +37,7 @@ public class Stack extends AbstractSinglyLinkedNode {
         Node curr = stack.head;
         while(curr != null)
         {
-            if(curr.val == val)
+            if(curr.val.equals(val))
             {
                 return index;
             }

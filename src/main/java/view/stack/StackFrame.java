@@ -1,8 +1,9 @@
 package view.stack;
 
 import model.stack.Stack;
-import util.Constant;
 import view.template.AbstractFrameTemplate;
+
+import static util.Constant.*;
 
 /**
  * @author aiden
@@ -16,7 +17,7 @@ public class StackFrame extends AbstractFrameTemplate {
 
         Stack stack = new Stack();
         StackGraphics stackGraphics = new StackGraphics(stack);
-        stackGraphics.setSize(Constant.GRAPHICS_W,Constant.GRAPHICS_H);
+        stackGraphics.setSize(GRAPHICS_W, GRAPHICS_H);
 
         StackControlPanel controlPanel = new StackControlPanel();
         controlPanel.setStack(stack);

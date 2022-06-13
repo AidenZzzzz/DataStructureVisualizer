@@ -1,25 +1,27 @@
-package view.stack;
+package view.linkedlist;
 
-import model.linkedlist.AbstractSinglyLinkedNode;
-import model.stack.Stack;
+import model.linkedlist.SinglyLinkedList;
 import view.template.AbstractControlPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
+import static util.Constant.*;
+
 /**
  * @author aiden
  */
-public class StackControlPanel extends AbstractControlPanel {
-    private StackGraphics  stackGraphics;
-    private Stack stack;
+public class LinkedListControlPanel extends AbstractControlPanel {
+    private LinkedListGraphics linkedListGraphics;
+    private SinglyLinkedList linkedList;
     private final JComboBox<String> actionChooser;
-    public StackControlPanel() {
+
+    public LinkedListControlPanel() {
         super();
-        String[] actions = new String[]{"Push", "Pop", "Find"};
+        String[] actions  = new String[] {"Insert", "Delete" , "Find", "Reverse"};
         actionChooser = new JComboBox<>(actions);
-        actionChooser.setPreferredSize(new Dimension(100,30));
+        actionChooser.setPreferredSize(new Dimension(CONTROL_BUTTON_WIDTH, CONTROL_BUTTON_HEIGHT));
         middleContainer.add(actionChooser);
         button.setText(Objects.requireNonNull(actionChooser.getSelectedItem()).toString());
         middleContainer.add(actionChooser);
@@ -33,6 +35,13 @@ public class StackControlPanel extends AbstractControlPanel {
         initActionListener();
     }
 
+    public void setLinkedListGraphics(LinkedListGraphics linkedListGraphics) {
+        this.linkedListGraphics = linkedListGraphics;
+    }
+
+    public void setLinkedList(SinglyLinkedList linkedList) {
+        this.linkedList = linkedList;
+    }
 
     private void initActionListener() {
         actionChooser.addActionListener(e -> {
@@ -45,13 +54,14 @@ public class StackControlPanel extends AbstractControlPanel {
             if(actionChooser.getSelectedItem()!=null) {
                 System.out.println("perform "+actionChooser.getSelectedItem());
                 switch (actionChooser.getSelectedItem().toString()) {
-                    case "Push" -> push(textField.getText());
-                    case "Pop" -> pop(textField.getText());
+                    case "Insert" -> insert(textField.getText());
+                    case "Delete" -> delete(textField.getText());
                     case "Find" -> find(textField.getText());
+                    case "Reverse" -> reverse(textField.getText());
                     default -> throw new IllegalStateException("Unexpected value: " + actionChooser.getSelectedItem());
                 }
                 textField.setText("");
-                stackGraphics.repaint();
+                linkedListGraphics.repaint();
 
             }
             else{
@@ -60,58 +70,47 @@ public class StackControlPanel extends AbstractControlPanel {
         });
     }
 
-    public void setStackGraphics(StackGraphics stackGraphics) {
-        this.stackGraphics = stackGraphics;
-    }
-
-    public void setStack(Stack stack) {
-        this.stack = stack;
-    }
-
-    private void pop(String name) {
-        System.out.println(name);
-        AbstractSinglyLinkedNode.Node top = Stack.top(stack);
-        if(top!=null) {
-            this.status.setText("removed " + top.val.toString());
-            stack = Stack.pop(stack);
-        }
-        else
-        {
-            this.status.setText("Stack empty");
-        }
-        stackGraphics.repaint();
+    private void reverse(String text) {
+        SinglyLinkedList.reverseList(linkedList);
+        linkedListGraphics.repaint();
         repaint();
     }
 
-    private void find(String name) {
-        if(name.equals(""))
+    private void find(String text) {
+        if(text.equals(""))
         {
             status.setText("Empty input");
             return;
         }
-        System.out.println(name);
-        int res = Stack.find(stack,name);
+        System.out.println(text);
+        int res = SinglyLinkedList.find(linkedList,text);
         if(res == -1)
         {
-            status.setText(name + " not found");
+            status.setText(text + " not found");
         }
         else
         {
             status.setText("Found at level " + res);
-            StackGraphics.drawIndex(stackGraphics.getG(),res);
+            LinkedListGraphics.drawIndex(linkedListGraphics.getG(),res);
         }
 
-        stackGraphics.repaint();
+        linkedListGraphics.repaint();
         repaint();
+
     }
 
-    private void push(String name) {
-        System.out.println(name);
-        Stack.push(stack,name);
-        stackGraphics.repaint();
+    private void delete(String text) {
+        System.out.println(text);
+        SinglyLinkedList.delete(linkedList,text);
+        linkedListGraphics.repaint();
         repaint();
+
     }
 
-
-
+    private void insert(String text) {
+        System.out.println(text);
+        SinglyLinkedList.insert(linkedList,text);
+        linkedListGraphics.repaint();
+        repaint();
+    }
 }
