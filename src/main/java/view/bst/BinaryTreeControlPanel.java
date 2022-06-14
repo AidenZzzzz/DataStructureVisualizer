@@ -81,6 +81,9 @@ public class BinaryTreeControlPanel extends AbstractControlPanel {
     private void smartInsert(String text) {
         insert(text);
         balance();
+        status.setText("Inserted " + text +" and balanced");
+        binaryTreeGraphics.repaint();
+        repaint();
     }
 
     private void balance() {
