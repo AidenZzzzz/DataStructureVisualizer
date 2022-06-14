@@ -19,8 +19,8 @@ public abstract class AbstractFrameTemplate extends JFrame {
         mainPanel = new JPanel();
         mainPanel.setPreferredSize(new Dimension(Constant.FRAME_WIDTH +15,Constant.FRAME_HEIGHT +15));
         mainPanel.setLayout(new BoxLayout(mainPanel,BoxLayout.PAGE_AXIS));
-        mainPanel.setBackground(Color.GRAY);
+        mainPanel.setBackground(Color.WHITE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBackground(Color.GRAY);
+        setBackground(Color.WHITE);
     }
 }

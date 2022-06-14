@@ -10,9 +10,9 @@ class BinaryTreeTest {
     {
         BinaryTree root = new BinaryTree(6);
         Assertions.assertNotNull(root.val);
-        BinaryTree.insert(root,5,0,0);
+        BinaryTree.insert(root,5);
         Assertions.assertNotNull(root.left);
-        BinaryTree.insert(root,7,0,0);
+        BinaryTree.insert(root,7);
         Assertions.assertNotNull(root.right);
 
     }

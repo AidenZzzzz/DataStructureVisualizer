@@ -25,7 +25,10 @@ public class LinkedListGraphics extends Canvas {
         this.graphics = g;
         SinglyLinkedList.Node curr = list.head;
         if(curr != null) {
-            drawHeadLabel(g);
+            g.drawLine(LL_INIT_X+25,LL_INIT_Y, LL_INIT_X+25 ,LL_INIT_Y-30);
+            g.drawLine(LL_INIT_X+25,LL_INIT_Y, LL_INIT_X+35 ,LL_INIT_Y-10);
+            g.drawLine(LL_INIT_X+25,LL_INIT_Y, LL_INIT_X+15 ,LL_INIT_Y-10);
+            g.drawString("Head" , LL_INIT_X+25,LL_INIT_Y-40);
         }
         int num = 0;
         while(curr != null){
@@ -54,14 +57,7 @@ public class LinkedListGraphics extends Canvas {
 
     }
 
-    private void drawHeadLabel(Graphics g) {
-        int arrowX = LL_INIT_X;
-        int arrowY = LL_INIT_Y+NODE_HEIGHT/2;
-        g.drawLine(arrowX,arrowY, arrowX-50 ,arrowY);
-        g.drawLine(arrowX,arrowY, arrowX-10 ,arrowY+10);
-        g.drawLine(arrowX,arrowY, arrowX-10 ,arrowY-10);
-        g.drawString("Head" , arrowX-40,arrowY-5);
-    }
+
 
     public Graphics getG() {
         return this.graphics;

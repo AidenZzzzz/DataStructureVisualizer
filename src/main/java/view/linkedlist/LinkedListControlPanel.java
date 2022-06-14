@@ -19,7 +19,7 @@ public class LinkedListControlPanel extends AbstractControlPanel {
 
     public LinkedListControlPanel() {
         super();
-        String[] actions  = new String[] {"Insert", "Delete" , "Find", "Reverse"};
+        String[] actions  = new String[] {"Insert", "Delete" , "Find", "Reverse", "Prune"};
         actionChooser = new JComboBox<>(actions);
         actionChooser.setPreferredSize(new Dimension(CONTROL_BUTTON_WIDTH, CONTROL_BUTTON_HEIGHT));
         middleContainer.add(actionChooser);
@@ -57,7 +57,8 @@ public class LinkedListControlPanel extends AbstractControlPanel {
                     case "Insert" -> insert(textField.getText());
                     case "Delete" -> delete(textField.getText());
                     case "Find" -> find(textField.getText());
-                    case "Reverse" -> reverse(textField.getText());
+                    case "Reverse" -> reverse();
+                    case "Prune" -> prune(textField.getText());
                     default -> throw new IllegalStateException("Unexpected value: " + actionChooser.getSelectedItem());
                 }
                 textField.setText("");
@@ -70,14 +71,27 @@ public class LinkedListControlPanel extends AbstractControlPanel {
         });
     }
 
-    private void reverse(String text) {
+    private void prune(String text) {
+        if(text.length() == 0)
+        {
+            status.setText("Empty input");
+            return;
+        }
+        SinglyLinkedList.prune(linkedList, text);
+        status.setText("Deleted trailing elements of " + text);
+        linkedListGraphics.repaint();
+        repaint();
+    }
+
+    private void reverse() {
         SinglyLinkedList.reverseList(linkedList);
+        status.setText("List reversal complete");
         linkedListGraphics.repaint();
         repaint();
     }
 
     private void find(String text) {
-        if(text.equals(""))
+        if(text.length() == 0)
         {
             status.setText("Empty input");
             return;
@@ -102,14 +116,21 @@ public class LinkedListControlPanel extends AbstractControlPanel {
     private void delete(String text) {
         System.out.println(text);
         SinglyLinkedList.delete(linkedList,text);
+        status.setText("Deleted " + text);
         linkedListGraphics.repaint();
         repaint();
 
     }
 
     private void insert(String text) {
-        System.out.println(text);
+        if(text.length()==0)
+        {
+            status.setText("Empty input");
+            return;
+        }
+        System.out.println("Inserting " + text);
         SinglyLinkedList.insert(linkedList,text);
+        status.setText("Inserted " + text);
         linkedListGraphics.repaint();
         repaint();
     }

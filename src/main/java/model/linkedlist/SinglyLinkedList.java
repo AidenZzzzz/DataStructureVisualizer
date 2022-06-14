@@ -84,4 +84,22 @@ public class SinglyLinkedList extends AbstractSinglyLinkedNode{
         }
         return -1;
     }
+
+    public static void prune(SinglyLinkedList list, Object key) {
+        Node currNode = list.head;
+        if ((currNode != null) && (currNode.val.equals(key))) {
+            list.head.next = null;
+            System.out.println("Trailing elements of " + key + " deleted");
+            return;
+        }
+
+        while ((currNode != null) && (!currNode.val.equals(key))) {
+            currNode = currNode.next;
+        }
+        if (currNode != null) {
+            currNode.next = null;
+            System.out.println("Trailing elements of " + key + " deleted");
+        }
+        System.out.println(key + " not found");
+    }
 }

@@ -1,93 +1,76 @@
 package model.bst;
 
-import util.Constant;
 
-import java.awt.*;
-
-import static util.Constant.*;
+import java.util.Vector;
 
 /**
  * @author aiden
  */
 public class BinaryTree {
-    public int offset;
     public BinaryTree left;
     public BinaryTree right;
     public Integer val;
-    public int x;
-    public int y;
-    public int w = NODE_WIDTH;
-    public int h = NODE_HEIGHT;
-    public int depth;
 
     public BinaryTree(int val) {
         this.val = val;
-        this.depth = 0;
-        this.x = BST_INIT_X;
-        this.y = BST_INIT_Y;
-    }
-
-    public BinaryTree(int x, int depth, int offset) {
-        this.val = x;
-        this.depth = depth;
-        this.offset = offset;
-
-        if(depth>1) {
-            this.w /= depth;
-            this.x = BST_INIT_X +offset+this.w;
-        }
-        else {
-            this.x = BST_INIT_X + offset;
-        }
-        this.y = BST_INIT_Y +depth* NODE_HEIGHT*2;
+        this.left = null;
+        this.right = null;
     }
 
     public BinaryTree() {
-        this.val=null;
-        this.depth = 0;
-        this.x = BST_INIT_X;
-        this.y = BST_INIT_Y;
+        this.val = null;
+        this.left = null;
+        this.right = null;
     }
 
-    public void draw(Graphics g)
+    public static BinaryTree balance(BinaryTree root) {
+        Vector<BinaryTree> nodes = new Vector<>();
+        storeNodes(root, nodes);
+        int n = nodes.size();
+        return buildTreeUtil(nodes, 0, n - 1);
+    }
+
+    private static BinaryTree buildTreeUtil(Vector<BinaryTree> nodes, int start, int end)
     {
-        if(val!=null) {
-            g.drawString(val.toString(), x + w / 2, y + h / 2);
-            g.drawRect(x, y, w, h);
-            if (left != null)
-            {
-                g.drawLine(x + w / 2, y + h, x, y + 2 * h);
-                left.draw(g);
-            }
-            if (right != null){
-                g.drawLine(x + w / 2, y + h, x + w, y + 2 * h);
-                right.draw(g);
-            }
-
+        if (start > end) {
+            return null;
         }
+        int mid = (start + end) / 2;
+        BinaryTree node = nodes.get(mid);
+        node.left = buildTreeUtil(nodes, start, mid - 1);
+        node.right = buildTreeUtil(nodes, mid + 1, end);
+        return node;
     }
 
-    public static void insert(BinaryTree root, int key, int depth, int offset)  {
-        insertRecursive(root, key, depth, offset);
+
+    private static void storeNodes(BinaryTree root, Vector<BinaryTree> nodes) {
+        if (root == null) {
+            return;
+        }
+        storeNodes(root.left, nodes);
+        nodes.add(root);
+        storeNodes(root.right, nodes);
     }
 
-    static BinaryTree insertRecursive(BinaryTree root, int key, int depth, int offset) {
+    public static void insert(BinaryTree root, int key)  {
+        insertRecursive(root, key);
+    }
+
+    private static BinaryTree insertRecursive(BinaryTree root, int key) {
         if(root==null) {
             //leaf of tree is null
-            root = new BinaryTree(key,depth,offset);
+            root = new BinaryTree(key);
         }
         else if (root.val == null) {
             //root of tree's value is null
             root.val = key;
-            root.depth = depth;
-            root.offset = offset;
             return root;
         }
 
         if (key < root.val) {
-            root.left = insertRecursive(root.left, key,depth+1,offset-(Constant.NODE_WIDTH/2));
+            root.left = insertRecursive(root.left, key);
         } else if (key > root.val) {
-            root.right = insertRecursive(root.right, key,depth+1,offset+(Constant.NODE_WIDTH/2));
+            root.right = insertRecursive(root.right, key);
         }
         return root;
     }
@@ -122,8 +105,7 @@ public class BinaryTree {
         return root;
     }
 
-    /* TODO: 6/10/22 multi-level delete does not reset depth and xy */
-    static BinaryTree deleteRecursive(BinaryTree root, int key)  {
+    private static BinaryTree deleteRecursive(BinaryTree root, int key)  {
         if (root == null) {
             return null;
         }
@@ -136,12 +118,6 @@ public class BinaryTree {
             if (root.left == null) {
                 return root.right;
             } else if (root.right == null) {
-                root.left.depth = root.depth;
-                root.left.offset = root.offset;
-                root.left.x = root.x;
-                root.left.y = root.y;
-                root.left.w = root.w;
-                root.left.h = root.h;
                 return root.left;
             }
             BinaryTree nextMaxNode = minValue(root.right);
@@ -167,18 +143,18 @@ public class BinaryTree {
     }
 
 
-    public static int getHeight(BinaryTree root) {
+    public static int getMaxHeight(BinaryTree root) {
         if(root==null) {
             return 0;
         }
         if(root.left==null & root.right ==null) {
             return 1;
         }
-        return 1+ Math.max(getHeight(root.left),getHeight(root.left));
+        return 1+ Math.max(getMaxHeight(root.left), getMaxHeight(root.left));
     }
 
-    public static int getWidth(BinaryTree root) {
-        return 2^getHeight(root);
+    public static int getMaxWidth(BinaryTree root) {
+        return 2^ getMaxHeight(root);
     }
 
     public static void preorder(BinaryTree root) {
